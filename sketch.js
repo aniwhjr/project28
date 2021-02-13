@@ -1,42 +1,43 @@
 const Engine = Matter.Engine;
-const World= Matter.World;
+const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
 
-var dustbinObj, paperObject,groundObject;
+var dustbinObj, paperObject, groundObject;
 var world;
 
 // var Launcher;
 
 function setup() {
-	createCanvas(1600, 700);
-	rectMode(CENTER);
+  createCanvas(1000, 700);
+  rectMode(CENTER);
 
-	engine = Engine.create();
-	world = engine.world;
+  engine = Engine.create();
+  world = engine.world;
 
-	dustbinObj=new dustbin(1200,650);
-	Launcher = new Launcher(paperObject, {x:100, y:height-70});
-	groundObject=new ground(width/2,670,width,20);
-
+  paperObject = new Paper(10, 450, 70);
+  dustbinObj = new dustbin(800, 650);
+  Launcher = new Launcher(paperObject.body, { x: 50, y: 500 });
+  groundObject = new ground(width / 2, 670, width, 20);
 }
 
 function draw() {
   rectMode(CENTER);
   background("#eee");
 
-	Engine.update(engine);
+  Engine.update(engine);
   strokeWeight(4);
 
-	Launcher.display();
+  paperObject.display();
+  Launcher.display();
   dustbinObj.display();
   groundObject.display();
 }
 
 function mouseDragged() {
-	Matter.Body.setPosition(paperObject.body, {x:mouseX, y: mouseY});
+  Matter.Body.setPosition(paperObject.body, { x: mouseX, y: mouseY });
 }
 
 function mouseReleased() {
-	Launcher.fly();
+  Launcher.fly();
 }
